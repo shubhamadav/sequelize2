@@ -17,9 +17,13 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require('./users')(sequelize,DataTypes);
+db.post = require('./post')(sequelize,DataTypes);
+db.tags = require('./tags')(sequelize,DataTypes);
+db.post_tags = require('./Post_tags')(sequelize,DataTypes);
 
-db.sequelize.sync()
-.then(()=>{
-    console.log("yes itis.....")
-})
+//db.users.hasOne(db.post ,{forgeignkey:'user_id'});
+//db.post.belongsTo(db.users,{forgeignkey:'post_id'});
+  
+db.post.belongsToMany(db.tags,{through:'Post_tags'})
+db.tags.belongsToMany(db.post,{through:'post_tags'})
 

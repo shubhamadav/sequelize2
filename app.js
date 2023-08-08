@@ -13,4 +13,6 @@ app.get("/add", userCtrl.addUser);
 
 app.get("/onetoone",userCtrl.onetoone);
 
+app.get("/manytomany", userCtrl.manytomany);
+
 app.listen(3000)

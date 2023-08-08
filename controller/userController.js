@@ -2,7 +2,8 @@ var db = require('../modul');
 
 
 const Users =  db.users;
-
+const Post = db.post;
+const Tags = db.tags;
 
 var addUser = async (req , res)=>{
 
@@ -18,14 +19,20 @@ var addUser = async (req , res)=>{
     res.status(200).json(response)
 }
 
-var onetoone = async (req , res)=>{
-    let data ={
-         data:'one to one'
-    }
-    res.status(200).json(data)
+var manytomany = async (req , res)=>{
+   let data = await Post.findAll({
+       attributes:['title','content'],
+       incluid:[{
+             module:Post,
+             attributes:['title']
+       }]
+   }) 
+   res.status(200).json(data);
 }
 
 module.exports = {
+    
     addUser,
-    onetoone
+    onetoone,
+    manytomany
 };
